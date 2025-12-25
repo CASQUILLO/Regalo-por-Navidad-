@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎄 Megas de Regalo — Navidad</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0f;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30,20,10,0.2) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 45c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232a1a0a' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      margin: 20px 0;
+      color: #e6c28a;
+      text-shadow: 0 0 10px rgba(230, 194, 138, 0.3);
+    }
+    .subtitle {
+      font-size: 1.3rem;
+      margin: 15px 0;
+      color: #ccc;
+    }
+    .gift-box {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(145deg, #8B0000, #A52A2A);
+      margin: 30px auto;
+      position: relative;
+      border-radius: 8px;
+      box-shadow: 
+        0 10px 20px rgba(0,0,0,0.5),
+        inset 0 -5px 10px rgba(0,0,0,0.3);
+    }
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 100%;
+      background: #FFD700;
+    }
+    .gift-box::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; transform: translateY(-50%);
+      width: 100%; height: 20px;
+      background: #FFD700;
+    }
+    .btn {
+      background: #e6c28a;
+      color: #0a0a0f;
+      border: none;
+      padding: 16px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 30px 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(230, 194, 138, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(230, 194, 138, 0.6);
+    }
+    .btn:hover:not(.loading) {
+      background: #ffd700;
+    }
+    .btn.loading {
+      position: relative;
+      pointer-events: none;
+      background: #555;
+      color: transparent;
+    }
+    .btn.loading::after {
+      content: '…';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #e6c28a;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .progress-container {
+      width: 90%;
+      max-width: 500px;
+      height: 20px;
+      background: #222;
+      border-radius: 10px;
+      margin: 30px auto;
+      overflow: hidden;
+      border: 1px solid #444;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2a7f2a, #4caf50);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+    .status {
+      font-size: 1.1rem;
+      margin: 15px 0;
+      color: #aaa;
+      min-height: 1.5em;
+    }
+    .error-box {
+      background: #1a0a0a;
+      border: 2px solid #8B0000;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 30px auto;
+      max-width: 600px;
+      display: none;
+    }
+    .error-title {
+      color: #e6c28a;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    .error-body {
+      color: #ddd;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    .message {
+      background: rgba(30,20,10,0.6);
+      border-left: 4px solid #e6c28a;
+      padding: 20px;
+      margin: 25px auto;
+      max-width: 600px;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      line-height: 1.7;
+    }
+    .share-btn {
+      background: #444;
+      color: #e6c28a;
+      padding: 12px 30px;
+      border-radius: 30px;
+      margin: 15px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .share-btn:hover {
+      background: #555;
+    }
+    footer {
+      margin-top: 40px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .btn { padding: 14px 30px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎄 ¡Megas de Regalo! Por Fin de Año</h1>
+    <p class="subtitle">Santa Claus no trae juguetes… trae megas.<br><small>(Spoiler: son ilusión.)</small></p>
+
+    <div class="gift-box"></div>
+
+    <p>¡Feliz Navidad! Por ser una persona de buen corazón (que tus megas nunca se agoten),<br>
+       has sido elegido/a para recibir:</p>
+    <h2 style="color:#4caf50; margin:15px 0; font-size:1.8rem;">🎁 Megas GRATIS</h2>
+    <p>Megas ilimitados hasta el 25 de diciembre, 11:59 PM<br>
+       <small>¡Actívalo ahora antes de que se acabe… como el ron!</small></p>
+
+    <button id="startBtn" class="btn">¡Quiero mis megas!</button>
+
+    <div id="loading" style="display:none;">
+      <div class="status" id="status">Conectando con el servidor de Santa…</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div id="errorBox" class="error-box">
+      <div class="error-title">❗ Error 404 – Regalo no encontrado</div>
+      <div class="error-body">
+        Lo sentimos. El paquete de megas fue interceptado por:<br>
+        • 🐦 Santa Claus<br>
+        • 🐦 Santa Claus “iba más adelante”<br>
+        • 🎅 Santa Claus… que se lo usó para subir sus fotos a Facebook.
+      </div>
+
+      <div class="message">
+        Pero… ¡no todo está perdido!<br>
+        Tu verdadero regalo es este:<br><br>
+        “Feliz Navidad. Que este año te llegue lo que más necesitas:<br>
+        paz, amor, salud… y, algún día, Megas ilimitados.<br>
+        Mientras tanto, lo que sí nunca se cae es mi cariño por ustedes.
+Los abrazo fuerte, aunque sea desde la distancia. ❤️”**.<br>
+        — <em>Casquillo</em>
+      </div>
+
+      <button class="btn" onclick="downloadCert()">📄 Descargar Certificado</button>
+      <div>
+        <div class="share-btn" onclick="shareWhatsApp()">📤 Enviar por WhatsApp</div>
+      </div>
+    </div>
+
+    <footer>
+      Megas de Regalo — Edición Navideña • Hecho con ❤️ y 99% de fe
+    </footer>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const loading = document.getElementById('loading');
+    const progressBar = document.getElementById('progressBar');
+    const status = document.getElementById('status');
+    const errorBox = document.getElementById('errorBox');
+
+    const messages = [
+      "Conectando con el servidor de Santa…",
+      "Buscando señal en La Habana…",
+      "Un palomo llevó tu solicitud… aún no regresa.",
+      "El WiFi del vecino está ocupado. Espera tu turno.",
+      "Verificando si hay luz en el edificio…",
+      "Firmando en ETECSA… (mentira, no hay firma)",
+      "Cargando optimismo cubano estándar…",
+      "¡Casi! Solo falta un milagrito…"
+    ];
+
+    startBtn.addEventListener('click', () => {
+      startBtn.classList.add('loading');
+      startBtn.textContent = 'Activando…';
+      loading.style.display = 'block';
+
+      // Simular progreso
+      let progress = 0;
+      const interval = setInterval(() => {
+        if (progress < 99) {
+          progress += Math.random() * 3 + 0.5;
+          if (progress > 99) progress = 99;
+          progressBar.style.width = progress + '%';
+          status.textContent = messages[Math.floor(Math.random() * messages.length)];
+        }
+      }, 500);
+
+      // Mostrar error después de ~8 segundos
+      setTimeout(() => {
+        clearInterval(interval);
+        progressBar.style.width = '99%';
+        status.textContent = "Casi listo… un último intento…";
+        
+        setTimeout(() => {
+          startBtn.style.display = 'none';
+          loading.style.display = 'none';
+          errorBox.style.display = 'block';
+        }, 3000);
+      }, 8000);
+    });
+
+    function downloadCert() {
+      const name = prompt("¿Cómo te llamas? (para el certificado)", "Amigo/a de Casquillo") || "Amigo/a de Casquillo";
+      
+      // Crear certificado simple en texto (para móviles sin PDF)
+      const cert = `🎄 CERTIFICADO OFICIAL 🎄
+      
+Nauta de Regalo – Edición Navideña
+
+Se otorga a:
+${name}
+
+Por haber mantenido la fe viva
+mientras la barra cargaba al 99%.
+
+Nivel de optimismo: Cubano Estándar™
+
+Firmado por:
+Casquillo
+Ministro/a del Buen Humor Popular
+
+✨ "La mejor conexión es la del corazón."
+Fecha: ${new Date().toLocaleDateString('es-CU')}`;
+
+      // Descargar como .txt (seguro en todos los móviles)
+      const blob = new Blob([cert], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Certificado_Navidad_Nauta.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+    }
+
+    function shareWhatsApp() {
+      const msg = "¡Mira lo que me regalaron en Navidad! 🎁 (Spoiler: fue fe y 99% de carga). ¿Cuánto aguantaste tú? → ";
+      const url = window.location.href;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(msg + url)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
